@@ -1,46 +1,46 @@
-CREATE TYPE user_role_enum  AS ENUM ('USER', 'ADMIN');
-CREATE TYPE item_type_enum  AS ENUM ('BOOK', 'MOVIE', 'ANIME', 'SERIES', 'GAME');
-CREATE TYPE item_status_enum AS ENUM ('PENDING', 'APPROVED', 'REJECTED');
+CREATE TYPE usuario_tipo_enum  AS ENUM ('USUARIO', 'ADMIN');
+CREATE TYPE item_tipo_enum  AS ENUM ('LIVRO', 'FILME', 'ANIME', 'SERIE', 'JOGO');
+CREATE TYPE item_status_enum AS ENUM ('PENDENTE', 'APROVADO', 'REJEITADO');
 
-CREATE TABLE user (
+CREATE TABLE usuario (
   id            SERIAL PRIMARY KEY,
-  name  varchar(60) NOT NULL,
+  nome  varchar(60) NOT NULL,
   email         varchar(255) NOT NULL UNIQUE,
-  password      varchar(255) NOT NULL,
-  role          user_role_enum NOT NULL DEFAULT 'USER',
-  created_at    TIMESTAMP NOT NULL DEFAULT NOW(),
+  senha      varchar(255) NOT NULL,
+  tipo          usuario_tipo_enum NOT NULL DEFAULT 'USUARIO',
+  criado_em    TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE item (
   id             SERIAL PRIMARY KEY,
-  type           item_type_enum NOT NULL,
-  title          varchar(200) NOT NULL,
-  synopsis       text,
-  release_date   date,
-  cover_url      text,
-  status         item_status_enum NOT NULL DEFAULT 'PENDING',
-  submitted_by   int NOT NULL REFERENCES user(id),
-  approved_by    int REFERENCES user(id),
-  approved_at    TIMESTAMP,
-  created_at     TIMESTAMP NOT NULL DEFAULT NOW(),
+  tipo           item_tipo_enum NOT NULL,
+  titulo          varchar(200) NOT NULL,
+  sinopse       text,
+  data_lancamento   date,
+  url_capa      text,
+  status         item_status_enum NOT NULL DEFAULT 'PENDENTE',
+  criado_por   int NOT NULL REFERENCES usuario(id),
+  aprovado_por    int REFERENCES usuario(id),
+  aprovado_em    TIMESTAMP,
+  criado_em     TIMESTAMP NOT NULL DEFAULT NOW(),
 );
 
-CREATE TABLE category(
+CREATE TABLE categoria(
     id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL
+    nome VARCHAR(100) NOT NULL
 )
 
-CREATE TABLE category_item(
+CREATE TABLE categoria_item(
     id SERIAL PRIMARY KEY,
     item_id int NOT NULL REFERENCES item(id),
-    category_id int NOT NULL REFERENCES category(id),
+    categoria_id int NOT NULL REFERENCES categoria(id),
 )
 
-CREATE TABLE comment (
+CREATE TABLE comentario (
   id          SERIAL PRIMARY KEY,
   item_id     int NOT NULL REFERENCES item(id),
-  user_id     int NOT NULL REFERENCES user(id),
-  body        text NOT NULL,
-  is_deleted  boolean NOT NULL DEFAULT false,
-  created_at  TIMESTAMP NOT NULL DEFAULT NOW()
+  usuario_id     int NOT NULL REFERENCES usuario(id),
+  texto        text NOT NULL,
+  foi_deletado  boolean NOT NULL DEFAULT false,
+  criado_em  TIMESTAMP NOT NULL DEFAULT NOW()
 );

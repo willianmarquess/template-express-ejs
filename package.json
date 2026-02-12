@@ -13,12 +13,16 @@
   "description": "",
   "devDependencies": {
     "@types/express": "^5.0.0",
+    "@types/express-session": "^1.18.2",
     "@types/node": "^22.13.0",
+    "@types/pg": "^8.15.5",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.7.3"
   },
   "dependencies": {
     "ejs": "^3.1.10",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "express-session": "^1.18.2",
+    "pg": "^8.16.3"
   }
 }
