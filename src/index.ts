@@ -1,6 +1,6 @@
 import express from 'express';
 import { userRoutes } from './routes/UserRoutes';
-import { admRoutes } from './routes/AdmRoutes';
+import { dashboardRoutes } from './routes/DashboardRoutes';
 import session from 'express-session';
 import { connection } from './infra/Connection';
 
@@ -23,7 +23,7 @@ app.use(session({
     cookie: { maxAge: 1 * 1000 * 60 * 60 } //uma hora de tempo de expiração
 }));
 app.use(userRoutes);
-app.use(admRoutes);
+app.use(dashboardRoutes);
 
 connection.connect()
     .then(() => { 

@@ -100,7 +100,7 @@ export class UsuarioController {
             id: usuario.id
         }
 
-        return res.redirect('/adm');
+        return res.redirect('/dashboard');
     }
 
     static async deslogar(req: Request, res: Response) {
