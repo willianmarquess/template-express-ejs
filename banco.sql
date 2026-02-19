@@ -33,7 +33,7 @@ CREATE TABLE categoria(
 CREATE TABLE categoria_item(
     id SERIAL PRIMARY KEY,
     item_id int NOT NULL REFERENCES item(id),
-    categoria_id int NOT NULL REFERENCES categoria(id),
+    categoria_id int NOT NULL REFERENCES categoria(id)
 );
 
 CREATE TABLE comentario (
