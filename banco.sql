@@ -22,19 +22,19 @@ CREATE TABLE item (
   criado_por   int NOT NULL REFERENCES usuario(id),
   aprovado_por    int REFERENCES usuario(id),
   aprovado_em    TIMESTAMP,
-  criado_em     TIMESTAMP NOT NULL DEFAULT NOW(),
+  criado_em     TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE categoria(
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL
-)
+);
 
 CREATE TABLE categoria_item(
     id SERIAL PRIMARY KEY,
     item_id int NOT NULL REFERENCES item(id),
     categoria_id int NOT NULL REFERENCES categoria(id),
-)
+);
 
 CREATE TABLE comentario (
   id          SERIAL PRIMARY KEY,
