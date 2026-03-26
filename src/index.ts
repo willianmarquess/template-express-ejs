@@ -1,7 +1,5 @@
 import express from 'express';
-import { userRoutes } from './routes/UserRoutes';
-import { dashboardRoutes } from './routes/DashboardRoutes';
-import session from 'express-session';
+import { usuarioRoutes } from './routes/UsuarioRoutes';
 import { connection } from './infra/Connection';
 
 const app = express();
@@ -16,14 +14,7 @@ app.get('/', function (req, res) {
     res.render('index', { message: 'Hello' });
 });
 
-app.use(session({
-    secret: 'aula-pw2', //chave usada para assinar o cookie
-    resave: false, //evita salvar a sessão se nada mudou
-    saveUninitialized: true, //salva as sessões não inicializadas
-    cookie: { maxAge: 1 * 1000 * 60 * 60 } //uma hora de tempo de expiração
-}));
-app.use(userRoutes);
-app.use(dashboardRoutes);
+app.use(usuarioRoutes);
 
 connection.connect()
     .then(() => { 
