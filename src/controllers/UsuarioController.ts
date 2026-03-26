@@ -61,4 +61,9 @@ export class UsuarioController {
     static carregarCadastrar(req: Request, res: Response) {
         res.render('usuario/cadastrar', { mensagem: null });
     }
+
+    static async carregarListar(req: Request, res: Response) {
+        const usuarios = await Usuario.buscarTodos();
+        res.render('usuario/listar', { usuarios, mensagem: null });
+    }
 } 

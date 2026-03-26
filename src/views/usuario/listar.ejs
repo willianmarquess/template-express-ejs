@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Usuários</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 2rem;
+            background-color: var(--bs-body-bg);
+            min-height: 100vh;
+        }
+
+        .table-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+            background-color: var(--bs-body);
+        }
+
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table thead {
+            border-bottom: 2px solid var(--bs-border-color);
+        }
+
+        .table tbody tr {
+            border-bottom: 1px solid var(--bs-border-color);
+        }
+
+        .btn-sm {
+            font-size: 0.875rem;
+        }
+
+        h4 {
+            color: var(--bs-body-color);
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="table-container">
+        <h4>Usuários Cadastrados</h4>
+        
+        <% if (usuarios && usuarios.length > 0) { %>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% usuarios.forEach((usuario) => { %>
+                            <tr>
+                                <th scope="row"><%= usuario.id %></th>
+                                <td><%= usuario.nome %></td>
+                                <td><%= usuario.email %></td>
+                                <td><%= usuario.tipo %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        <% } else { %>
+            <div class="alert alert-warning" role="alert">
+                Nenhum usuário cadastrado. <a href="/usuario/cadastrar" class="alert-link">Cadastre um novo</a>
+            </div>
+        <% } %>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>
