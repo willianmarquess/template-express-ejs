@@ -10,34 +10,41 @@
         <%- include('../../partials/sidebar') %>
 
           <div class="content">
-            <h1>Editar</h1>
-            <form action="/usuario/editar/<%=usuarioParaEditar.id%>" method="post">
+            <h1><%= titulo %></h1>
+            <form action="/admin/usuario/cadastrar" method="post">
               <div class="row">
                 <div class="form-group mb-3 col-lg-6 col-md-8 col-12">
                   <label for="nome">Nome</label>
-                  <input class="form-control" type="text" name="nome" id="nome" value="<%= usuarioParaEditar.nome %>">
+                  <input class="form-control" type="text" name="nome" id="nome" required>
                 </div>
               </div>
 
               <div class="row">
                 <div class="form-group mb-3 col-lg-6 col-md-8 col-12">
                   <label for="email">Email</label>
-                  <input class="form-control" type="email" name="email" id="email"
-                    value="<%= usuarioParaEditar.email %>">
+                  <input class="form-control" type="email" name="email" id="email" required>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group mb-3 col-lg-6 col-md-8 col-12">
+                  <label for="senha">Senha</label>
+                  <input class="form-control" type="password" name="senha" id="senha" required>
                 </div>
               </div>
 
               <div class="row">
                 <div class="form-group mb-3 col-lg-6 col-md-8 col-12">
                   <label for="tipo">Tipo</label>
-                  <select name="tipo" id="tipo" class="form-control">
-                    <option <%=usuarioParaEditar.tipo.nome === 'ADMIN' ? 'selected' : ''%> value="ADMIN">Admin</option>
-                    <option <%=usuarioParaEditar.tipo.nome === 'USUARIO' ? 'selected' : ''%> value="USUARIO">Usuário</option>
+                  <select name="tipo" id="tipo" class="form-control" required>
+                    <option value="USUARIO">Usuário</option>
+                    <option value="ADMIN">Admin</option>
                   </select>
                 </div>
               </div>
 
-              <button type="submit" class="btn btn-primary mt-1">Salvar</button>
+              <button type="submit" class="btn btn-primary mt-1">Cadastrar</button>
+              <a href="/usuario/listar" class="btn btn-secondary mt-1">Voltar</a>
             </form>
           </div>
       </div>

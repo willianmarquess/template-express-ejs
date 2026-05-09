@@ -1,7 +1,13 @@
-export function authMiddleware(req: any, res: any, next: any) {
-    if(req.session?.usuario) { // se o usuário estiver logado
-        return next(); //continua a request
-    }
+export function authMiddleware(tiposPermitidos: string[] = []) {
+    return function (req: any, res: any, next: any) {
+        if (!req.session?.usuario) {
+            return res.redirect('/usuario/logar');
+        }
 
-    return res.redirect('/usuario/logar'); //senão volta pro login
+        if (tiposPermitidos.length > 0 && !tiposPermitidos.includes(req.session.usuario.tipo)) {
+            return res.redirect('/dashboard');
+        }
+
+        return next();
+    }
 }

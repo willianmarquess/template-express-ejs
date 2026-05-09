@@ -16,11 +16,21 @@ export class TipoUsuario {
         return rows.map(({ id, nome, descricao }) => new TipoUsuario(id, nome, descricao));
     }
 
-    static async buscarPorNome(nome: 'USUARIO' | 'ADMIN') {
+    static async buscarPorId(id: number) {
+        const { rows } = await connection.query(
+            'SELECT * FROM tipo_usuario WHERE id = $1;',
+            [id]
+        );
+        if (!rows[0]) return null;
+        return new TipoUsuario(rows[0].id, rows[0].nome, rows[0].descricao);
+    }
+
+    static async buscarPorNome(nome: string) {
         const { rows } = await connection.query(
             'SELECT * FROM tipo_usuario WHERE nome = $1;', 
             [nome]
         );
-        return rows.map(({ id, nome, descricao }) => new TipoUsuario(id, nome, descricao));
+        if (!rows[0]) return null;
+        return new TipoUsuario(rows[0].id, rows[0].nome, rows[0].descricao);
     }
 }
