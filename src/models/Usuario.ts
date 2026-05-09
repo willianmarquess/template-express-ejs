@@ -1,5 +1,5 @@
-import { TipoUsuario } from "../enums/TipoUsuario";
 import { connection } from "../infra/Connection";
+import { TipoUsuario } from "./TipoUsuario";
 
 export class Usuario {
     id?: number;
@@ -45,13 +45,19 @@ export class Usuario {
 
     //Função que recupera todos os usuario do banco
     static async buscarTodos() {
-        const { rows } = await connection.query('SELECT * FROM usuario;');
+        const { rows } = await connection.query(`
+            select 
+            u.id as id_usuario, u.nome as nome_usuario, u.email, u.senha, u.tipo, u.criado_em,
+            t.id as id_tipo, t.nome as nome_tipo, t.descricao
+            from usuario u inner join tipo_usuario t
+            on u.tipo = t.id;
+            `);
         return rows.map((row) => new Usuario({
-            id: row.id,
-            nome: row.nome,
+            id: row.id_usuario,
+            nome: row.nome_usuario,
             email: row.email,
             senha: row.senha,
-            tipo: row.tipo,
+            tipo: new TipoUsuario(row.id_tipo, row.nome_tipo, row.descricao),
             criadoEm: row.criado_em
         }));
     }

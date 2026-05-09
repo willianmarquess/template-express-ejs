@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<%- include('../../partials/head') %>
+
+  <body class="bg-light">
+
+    <%- include('../../partials/header') %>
+
+      <div class="d-flex">
+        <%- include('../../partials/sidebar') %>
+
+          <div class="content">
+            <h1>Editar</h1>
+            <form action="/usuario/editar/<%=usuarioParaEditar.id%>" method="post">
+              <div class="row">
+                <div class="form-group mb-3 col-lg-6 col-md-8 col-12">
+                  <label for="nome">Nome</label>
+                  <input class="form-control" type="text" name="nome" id="nome" value="<%= usuarioParaEditar.nome %>">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group mb-3 col-lg-6 col-md-8 col-12">
+                  <label for="email">Email</label>
+                  <input class="form-control" type="email" name="email" id="email"
+                    value="<%= usuarioParaEditar.email %>">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group mb-3 col-lg-6 col-md-8 col-12">
+                  <label for="tipo">Tipo</label>
+                  <select name="tipo" id="tipo" class="form-control">
+                    <option <%=usuarioParaEditar.tipo === 'ADMIN' ? 'selected' : ''%> value="ADMIN">Admin</option>
+                    <option <%=usuarioParaEditar.tipo === 'USUARIO' ? 'selected' : ''%> value="USUARIO">Usuário</option>
+                  </select>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary mt-1">Salvar</button>
+            </form>
+          </div>
+      </div>
+
+      <%- include('../../partials/scripts') %>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <% if (mensagem) { %>
+
+          <script>
+            Swal.fire({
+              icon: '<%= mensagem.tipo %>',
+              text: '<%= mensagem.valor %>'
+            });
+          </script>
+
+          <% } %>
+  </body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<%- include('../../partials/head') %>
+
+  <body class="bg-light">
+
+    <%- include('../../partials/header') %>
+
+      <div class="d-flex">
+        <%- include('../../partials/sidebar') %>
+
+          <div class="content">
+            <h1>Listar</h1>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nome</th>
+                  <th>Email</th>
+                  <th>Tipo</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% usuarios.forEach((usuario, i)=> { %>
+                  <tr>
+                    <td>
+                      <%= i+1 %>
+                    </td>
+                    <td>
+                      <%= usuario.nome %>
+                    </td>
+                    <td>
+                      <%= usuario.email %>
+                    </td>
+                    <td>
+                      <%= usuario.tipo %>
+                    </td>
+                    <td class="d-flex gap-2">
+                      <form action="/usuario/editar/<%=usuario.id%>" method="get">
+                        <button type="submit" class="btn btn-primary">Editar</button>
+                      </form>
+                      <form class="form-excluir" action="/usuario/excluir/<%=usuario.id%>" method="post">
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                      </form>
+                    </td>
+                  </tr>
+                  <% }) %>
+              </tbody>
+            </table>
+          </div>
+      </div>
+
+      <%- include('../../partials/scripts') %>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+          const formsExcluir = document.getElementsByClassName('form-excluir');
+          for (const formExcluir of formsExcluir) {
+            formExcluir.addEventListener('submit', (e) => {
+              e.preventDefault();
+              Swal.fire({
+                title: 'Deseja realmente excluir?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sim',
+                cancelButtonText: 'Cancelar'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  formExcluir.submit();
+                }
+              });
+            });
+          }
+        </script>
+
+
+        <% if (mensagem) { %>
+
+          <script>
+            Swal.fire({
+              icon: '<%= mensagem.tipo %>',
+              text: '<%= mensagem.valor %>'
+            });
+          </script>
+
+          <% } %>
+  </body>
+
+</html>

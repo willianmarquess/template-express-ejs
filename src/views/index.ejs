@@ -1,15 +1,184 @@
-<!DOCTYPE html>
-<html lang="pt-br" data-bs-theme="dark">
+<!doctype html>
+<html lang="pt-br">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema Etec</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <title>Catálogo Geek — Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    crossorigin="anonymous">
+
+  <style>
+    body {
+      background: #0b0d10;
+      color: #e8eaed;
+    }
+
+    .navbar,
+    .offcanvas {
+      background: #14181f;
+    }
+
+    .card {
+      background: #171a21;
+      border: 1px solid #232833;
+      height: 100%;
+    }
+
+    .badge-type {
+      letter-spacing: .3px;
+    }
+
+    .cover {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      background: #0b0d10;
+    }
+
+    .search-hero {
+      background: linear-gradient(180deg, #10141b 0%, #0b0d10 100%);
+      border-bottom: 1px solid #232833;
+    }
+
+    .form-control,
+    .form-select,
+    .form-button {
+      background: #0f131a;
+      color: #e8eaed;
+      border-color: #232833;
+    }
+
+    .form-button {
+      background: #0758d2;
+    }
+
+    .form-control::placeholder {
+      color: #9aa4af;
+    }
+
+    .page-link {
+      background: #0f131a;
+      color: #e8eaed;
+      border-color: #232833;
+    }
+
+    .page-item.active .page-link {
+      background: #375a7f;
+      border-color: #375a7f;
+    }
+
+    a,
+    a:hover {
+      color: #9ad0ff;
+    }
+  </style>
 </head>
 
 <body>
-  <a href="/usuario/cadastrar">Cadastrar Usuario</a> <br>
-  <a href="/usuario/listar">Listar Usuarios</a>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">📚🎬 Catálogo Geek</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="offcanvas offcanvas-end text-bg-dark" id="menu">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title">Menu</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link active" href="#">Início</a></li>
+            <li class="nav-item"><a class="nav-link" href="/usuario/logar">Entrar</a></li>
+            <li class="nav-item"><a class="nav-link" href="/usuario/logar">Cadastrar</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero / Busca -->
+  <section class="py-5 search-hero">
+    <div class="container">
+      <div class="row g-3 align-items-end">
+        <div class="col-12 col-lg-6">
+          <h1 class="fw-bold mb-2">Descubra livros, filmes, animes e séries</h1>
+          <p class="text-secondary mb-0">Busca pública. Para comentar, faça login.</p>
+        </div>
+        <div class="col-12 col-lg-6">
+          <div class="row g-2">
+            <div class="col-12 col-md-6">
+              <input id="q" type="search" class="form-control form-control-lg"
+                placeholder="Buscar por título ou sinopse…">
+            </div>
+            <div class="col-4 col-md-3">
+              <select id="typeFilter" class="form-select">
+                <option value="">Todos</option>
+                <option value="BOOK">Livros</option>
+                <option value="MOVIE">Filmes</option>
+                <option value="ANIME">Animes</option>
+                <option value="SERIES">Séries</option>
+              </select>
+            </div>
+            <div class="col-3 col-md-3">
+              <button type="button" class="btn form-button">Buscar</button>
+            </div>
+            <div class="col-12">
+              <div class="d-flex flex-wrap gap-2">
+                <button data-type="" class="btn btn-sm btn-outline-light px-3 type-chip active">Todos</button>
+                <button data-type="BOOK" class="btn btn-sm btn-outline-light px-3 type-chip">Livro</button>
+                <button data-type="MOVIE" class="btn btn-sm btn-outline-light px-3 type-chip">Filme</button>
+                <button data-type="ANIME" class="btn btn-sm btn-outline-light px-3 type-chip">Anime</button>
+                <button data-type="SERIES" class="btn btn-sm btn-outline-light px-3 type-chip">Série</button>
+                <span id="resultCount" class="ms-auto text-secondary small"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Grid -->
+  <main class="py-4">
+    <div class="container">
+      <div id="grid" class="row g-3">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+          <div class="card h-100 shadow-sm">
+            <img class="cover" src="https://placehold.co/600x400" alt="Capa de Teste">
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <h5 class="card-title me-2">Teste</h5>
+                <span class="badge badge-type ${b.cls}">Teste</span>
+              </div>
+              <p class="card-text text-secondary small mb-3">Resumo</p>
+              <div class="mt-auto d-flex justify-content-between align-items-center">
+                <small class="text-secondary">Data Lançamento</small>
+                <a class="stretched-link" href="/item/id">Detalhes</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paginação -->
+      <nav class="mt-4">
+        <ul id="pagination" class="pagination justify-content-center"></ul>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="py-4 border-top border-secondary" style="border-color:#232833!important;">
+    <div class="container text-center text-secondary small">
+      © <span id="year"></span> Catálogo Geek.
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
 </body>
 </html>
