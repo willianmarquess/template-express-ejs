@@ -3,8 +3,13 @@ import { usuarioRoutes } from './routes/UsuarioRoutes';
 import { dashboardRoutes } from './routes/DashboardRoutes';
 import session from 'express-session';
 import { connection } from './infra/Connection';
+import dotenv from 'dotenv';
+
+// Carrega as variáveis de ambiente
+dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 3333;
 
 app.set('view engine', 'ejs');
 
@@ -17,7 +22,7 @@ app.get('/', function (req, res) {
 });
 
 app.use(session({
-    secret: 'aula-pw2', //chave usada para assinar o cookie
+    secret: process.env.SESSION_SECRET || 'aula-pw2', //chave usada para assinar o cookie
     resave: false, //evita salvar a sessão se nada mudou
     saveUninitialized: true, //salva as sessões não inicializadas
     cookie: { maxAge: 1 * 1000 * 60 * 60 } //uma hora de tempo de expiração
@@ -28,8 +33,8 @@ app.use(dashboardRoutes);
 connection.connect()
     .then(() => { 
         console.log('Conectado ao banco de dados com sucesso!')
-        app.listen(3333, () => {
-            console.log('Servidor rodando no endereço http://localhost:3333');
+        app.listen(PORT, () => {
+            console.log(`Servidor rodando no endereço http://localhost:${PORT}`);
         });
     })
     .catch((err) => { 

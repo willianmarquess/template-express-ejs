@@ -201,8 +201,7 @@ export class UsuarioController {
         const usuarioEncontrado = await Usuario.buscarPorId(id);
 
         if(!usuarioEncontrado) {
-            //TODO: criar página de erro (exception)
-            return res.render('');
+            throw new Error('Usuário não encontrado');
         }
 
         return res.render('pages/usuario/editar', {
@@ -294,7 +293,7 @@ export class UsuarioController {
         const usuarioEncontrado = await Usuario.buscarPorId(id);
 
         if(!usuarioEncontrado) {
-            return res.render(''); //TODO: criar pagina de erro
+            throw new Error('Usuário não encontrado');
         }
 
         const tipoSelecionado = await TipoUsuario.buscarPorNome(tipo);
